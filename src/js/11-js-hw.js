@@ -6,7 +6,7 @@ import axios from 'axios';
 const formEl = document.querySelector('#search-form');
 // const inputEl = document.querySelector('input');
 const btnEl = document.querySelector('button');
-const gallery = document.querySelector('.gallery');
+const galleryEl = document.querySelector('.gallery');
 
 formEl.addEventListener('submit', onSearch);
 
@@ -18,52 +18,48 @@ function onSearch(event) {
     .get(
       `https://pixabay.com/api/?key=29860277-84021bf85cd78542af410165f&q=${inputEl}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40`
     )
-    .then(function (response) {
-      gallery.innerHTML = (
-        <div class="photo-card">
-          <img src="" alt="" loading="lazy" />
-          <div class="info">
-            <p class="info-item">
-              <b>Likes</b>
-            </p>
-            <p class="info-item">
-              <b>Views</b>
-            </p>
-            <p class="info-item">
-              <b>Comments</b>
-            </p>
-            <p class="info-item">
-              <b>Downloads</b>
-            </p>
-          </div>
-        </div>
-      );
-
-      // обробка успішного запиту
-      console.log(response);
+    .then(response => response.data)
+    .then(data => {
+      console.log(data);
+      const cardMarkup = data.hits
+        .map(
+          ({
+            webformatURL,
+            largeImageURL,
+            tags,
+            likes,
+            views,
+            comments,
+            downloads,
+          }) => {
+            return `<div class="photo-card">
+            <a href="${largeImageURL}">
+            <img src="${webformatURL}" alt="${tags}" loading="lazy" /></a>
+            <div class="info">
+              <p class="info-item">
+                <b>Likes</b> ${likes}
+              </p>
+              <p class="info-item">
+                <b>Views</b> ${views}
+              </p>
+              <p class="info-item">
+                <b>Comments</b> ${comments}
+              </p>
+              <p class="info-item">
+                <b>Downloads</b> ${downloads}
+              </p>
+            </div>
+            
+          </div>`;
+          }
+        )
+        .join('');
+      galleryEl.insertAdjacentHTML('afterbegin', cardMarkup);
     })
-    .catch(function (error) {
-      Notiflix.Notify.failure(error);
-      // обробка помилки
-      console.log(error);
-    })
-    .then(function () {
-      // виконується завжди
-    });
-
-  //   fetch(
-  //     `https://pixabay.com/api/?key=29860277-84021bf85cd78542af410165f&q=${inputEl}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40`
-  //   ).then(response => {
-  //     console.log(response.json());
-  //   });
+    .catch(error => console.log(error));
 }
-// console.log(onSearch);
 
-// const { height: cardHeight } = document
-//   .querySelector('.gallery')
-//   .firstElementChild.getBoundingClientRect();
-
-// window.scrollBy({
-//   top: cardHeight * 2,
-//   behavior: 'smooth',
-// });
+const galerySimple = new SimpleLightbox('.photo-card', {
+  captionDelay: 250,
+});
+// galerySimple.refresh();
