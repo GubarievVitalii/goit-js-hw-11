@@ -32,7 +32,29 @@ img {
 display: flex;
 text-align: center;
 }
+.load-more {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: rgb(99, 99, 167);
+    color: white;
+    margin-top: 25px;
+}
 
-// .info-item {
-//     display: flex;
-// }
+.is-hidden {
+    display: none;
+}
+
+.btn-top {
+    position: absolute;
+    font-size: 16px;
+    font-weight: 700;
+    width: 50px;
+    border-radius: 25px;
+    right: 5px;
+    bottom: 5px;
+    background-color: rgb(99, 99, 167);
+    color: white;
+    opacity: 0.5;
+
+}
