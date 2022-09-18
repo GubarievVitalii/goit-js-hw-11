@@ -1,17 +1,18 @@
-// import axios from 'axios';
+import axios from 'axios';
+axios.defaults.baseURL = 'https://pixabay.com/';
+const API_KEY = '29860277-84021bf85cd78542af410165f';
 
-// axios
-//   .get(
-//     `https://pixabay.com/api/?key=29860277-84021bf85cd78542af410165f&q=${inputEl}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40`
-//   )
-//   .then(function (response) {
-//     // обробка успішного запиту
-//     console.log(response);
-//   })
-//   .catch(function (error) {
-//     // обробка помилки
-//     console.log(error);
-//   })
-//   .then(function () {
-//     // виконується завжди
-//   });
+export default async function requestAxios(query, page, perPage) {
+  axios.defaults.params = {
+    key: API_KEY,
+    q: query,
+    image_type: 'photo',
+    orientation: 'horizontal',
+    safesearch: true,
+    per_page: perPage,
+    page: page,
+  };
+  const response = await axios.get(`api/`);
+  const data = await response.data;
+  return data;
+}

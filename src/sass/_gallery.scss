@@ -16,7 +16,6 @@
 }
 
 .photo-card__link {
-    // display: block;
     text-decoration: none;
     height: 100%;
 }
@@ -37,8 +36,11 @@ text-align: center;
     margin-left: auto;
     margin-right: auto;
     background-color: rgb(99, 99, 167);
+    font-weight: 700;
+    font-size: 18px;
     color: white;
     margin-top: 25px;
+    border-radius: 25px;
 }
 
 .is-hidden {
@@ -46,10 +48,12 @@ text-align: center;
 }
 
 .btn-top {
-    position: absolute;
-    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    position: fixed;
+    font-size: 22px;
     font-weight: 700;
-    width: 50px;
+    width: 70px;
     border-radius: 25px;
     right: 5px;
     bottom: 5px;
